@@ -1,4 +1,6 @@
 template: Hello, %s!
 defaultName: Stranger
-http:
-  port: ${PORT}
+server:
+  applicationConnectors:
+    - type: http
+      port: ${PORT}
