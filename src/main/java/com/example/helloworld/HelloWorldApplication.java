@@ -7,6 +7,7 @@ import com.example.helloworld.resources.HelloWorldResource;
 import com.example.helloworld.health.TemplateHealthCheck;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
+
   public static void main(String[] args) throws Exception {
     new HelloWorldApplication().run(args);
   }
