@@ -2,7 +2,8 @@ package com.example.helloworld;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
-import javax.validation.constraints.NotEmpty;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class HelloWorldConfiguration extends Configuration {
 
@@ -11,6 +12,9 @@ public class HelloWorldConfiguration extends Configuration {
 
   @NotEmpty
   private String defaultName = "Stranger";
+
+  @JsonProperty("swagger")
+  public SwaggerBundleConfiguration swaggerBundleConfiguration;
 
   @JsonProperty
   String getTemplate() {

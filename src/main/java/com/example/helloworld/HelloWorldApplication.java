@@ -5,6 +5,8 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import com.example.helloworld.resources.HelloWorldResource;
 import com.example.helloworld.health.TemplateHealthCheck;
+import io.federecio.dropwizard.swagger.SwaggerBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 
@@ -19,7 +21,12 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
   @Override
   public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
-    // nothing to do yet
+    bootstrap.addBundle(new SwaggerBundle<HelloWorldConfiguration>() {
+      @Override
+      protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(HelloWorldConfiguration configuration) {
+        return configuration.swaggerBundleConfiguration;
+      }
+    });
   }
 
   @Override

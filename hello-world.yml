@@ -1,5 +1,6 @@
 template: Hello, %s!
 defaultName: Stranger
+
 server:
   applicationConnectors:
     - type: http
@@ -7,3 +8,6 @@ server:
   adminConnectors:
     - type: http
       port: ${ADMIN_PORT}
+
+swagger:
+  resourcePackage: com.example.helloworld.resources
