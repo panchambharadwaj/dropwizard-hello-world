@@ -1,1 +1,1 @@
-web: java -Ddw.server.applicationConnectors[0].port=$PORT -jar target/hello-world-1.0-SNAPSHOT.jar server hello-world.yml
+web: java -Ddw.server.applicationConnectors[0].port=$PORT -Ddw.server.adminConnectors[0].port=$ADMIN_PORT -jar target/hello-world-1.0-SNAPSHOT.jar server hello-world.yml
