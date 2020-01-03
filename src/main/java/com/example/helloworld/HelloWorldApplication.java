@@ -2,6 +2,8 @@ package com.example.helloworld;
 
 import com.example.helloworld.actors.ActionType;
 import com.example.helloworld.actors.TestActor;
+import com.example.helloworld.clients.MemCachierClient;
+import com.example.helloworld.configs.HelloWorldConfiguration;
 import com.example.helloworld.resources.HelloWorldResource;
 import com.example.helloworld.utils.PostgresUrlParser;
 import io.dropwizard.Application;
@@ -13,7 +15,9 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
+import java.io.IOException;
 import java.net.URISyntaxException;
+import net.rubyeye.xmemcached.MemcachedClient;
 import org.clojars.pancham.dropwizard.actors.RabbitmqActorBundle;
 import org.clojars.pancham.dropwizard.actors.config.RMQConfig;
 import org.clojars.pancham.dropwizard.actors.retry.RetryStrategyFactory;
@@ -58,10 +62,12 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
   }
 
   @Override
-  public void run(HelloWorldConfiguration configuration, Environment environment) throws URISyntaxException {
+  public void run(HelloWorldConfiguration configuration, Environment environment) throws URISyntaxException, IOException {
     configuration.getDatabase().setUrl(new PostgresUrlParser().parse(configuration.getDatabase().getUrl()));
     final JdbiFactory factory = new JdbiFactory();
     final Jdbi jdbi = factory.build(environment, configuration.getDatabase(), JDBI_NAME);
+
+    MemcachedClient memcachedClient = new MemCachierClient(configuration.getXmemcachedConfig()).getClient();
 
     environment.lifecycle().manage(new Managed() {
       TestActor testActor = null;
@@ -81,6 +87,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
             HelloWorldResource.builder()
                 .jdbi(jdbi)
                 .testActor(testActor)
+                .memcachedClient(memcachedClient)
                 .build());
       }
 

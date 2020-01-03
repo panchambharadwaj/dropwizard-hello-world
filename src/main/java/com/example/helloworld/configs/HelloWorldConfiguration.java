@@ -1,4 +1,4 @@
-package com.example.helloworld;
+package com.example.helloworld.configs;
 
 import com.example.helloworld.actors.ActionType;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -39,5 +39,10 @@ public class HelloWorldConfiguration extends Configuration {
   @NotEmpty
   @Valid
   public Map<ActionType, ActorConfig> actors = Maps.newHashMap();
+
+  @JsonProperty("memCachier")
+  @NotNull
+  @Valid
+  public XmemcachedConfig xmemcachedConfig;
 
 }

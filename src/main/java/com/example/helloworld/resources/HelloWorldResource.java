@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
+import net.rubyeye.xmemcached.MemcachedClient;
 import org.jdbi.v3.core.Jdbi;
 
 @Path("/")
@@ -29,10 +30,13 @@ public class HelloWorldResource {
 
   private BotDao botDao;
 
+  private MemcachedClient memcachedClient;
+
   @Builder
-  public HelloWorldResource(Jdbi jdbi, TestActor testActor) {
+  public HelloWorldResource(Jdbi jdbi, TestActor testActor, MemcachedClient memcachedClient) {
     this.testActor = testActor;
     this.botDao = jdbi.onDemand(BotDao.class);
+    this.memcachedClient = memcachedClient;
   }
 
   @GET
@@ -43,11 +47,17 @@ public class HelloWorldResource {
   })
   @ApiOperation(value = "Say Hello")
   public Response sayHello(@QueryParam("name") String name) throws Exception {
+    int athleteId = botDao.getAthleteIdByName("Pancham Bharadwaj");
+    log.info("Athlete ID: {}", athleteId);
+    log.info("Putting into cache..");
+    boolean result = memcachedClient.set("Pancham Bharadwaj", 0, athleteId);
+    log.info("Result: {}", result);
     testActor.publish(TestRequest.builder()
         .message(name)
         .build());
-    int athleteId = botDao.getAthleteIdByName("Pancham Bharadwaj");
-    log.info("Athlete ID: {}", athleteId);
+    athleteId = memcachedClient.get("Pancham Bharadwaj");
+    log.info("Fetched from cache: {}", athleteId);
+
     return Response.status(Status.OK).build();
   }
 }

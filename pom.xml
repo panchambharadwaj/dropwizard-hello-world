@@ -19,6 +19,7 @@
     <reflections.version>0.9.10</reflections.version>
     <postgresql.version>42.2.9</postgresql.version>
     <dropwizard.jdbi3.version>2.0.0</dropwizard.jdbi3.version>
+    <xmemcached.version>2.4.6</xmemcached.version>
     <maven.shade.plugin.version>3.2.1</maven.shade.plugin.version>
     <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
     <maven.dependency.plugin.version>3.1.1</maven.dependency.plugin.version>
@@ -111,6 +112,11 @@
       <groupId>io.dropwizard</groupId>
       <artifactId>dropwizard-jdbi3</artifactId>
       <version>${dropwizard.jdbi3.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.xmemcached</groupId>
+      <artifactId>xmemcached</artifactId>
+      <version>${xmemcached.version}</version>
     </dependency>
   </dependencies>
 

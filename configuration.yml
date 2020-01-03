@@ -39,3 +39,11 @@ actors:
       maxAttempts: 6
       multipier: 50
       maxTimeBetweenRetries: 30s
+
+memCachier:
+  memCachierServers: ${MEMCACHIER_SERVERS}
+  memCachierUsername: ${MEMCACHIER_USERNAME}
+  memCachierPassword: ${MEMCACHIER_PASSWORD}
+  connectTimeout: 10000
+  enableHealSession: true
+  healSessionInterval: 2000
