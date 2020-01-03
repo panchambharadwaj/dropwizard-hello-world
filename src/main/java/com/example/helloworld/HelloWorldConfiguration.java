@@ -9,10 +9,12 @@ import java.util.Map;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.clojars.pancham.dropwizard.actors.actor.ActorConfig;
 import org.clojars.pancham.dropwizard.actors.config.RMQConfig;
 import org.hibernate.validator.constraints.NotEmpty;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class HelloWorldConfiguration extends Configuration {
 

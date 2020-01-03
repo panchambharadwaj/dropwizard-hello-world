@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import lombok.Builder;
 
-@Path("/hello-world")
+@Path("/")
 @Api(value = "Hello World")
 @Produces(MediaType.APPLICATION_JSON)
 public class HelloWorldResource {
