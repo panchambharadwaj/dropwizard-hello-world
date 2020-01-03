@@ -15,10 +15,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
 @Path("/")
 @Api(value = "Hello World")
 @Produces(MediaType.APPLICATION_JSON)
+@Slf4j
 public class HelloWorldResource {
 
   private final TestActor testActor;
@@ -29,11 +31,12 @@ public class HelloWorldResource {
   }
 
   @GET
+  @Path("/v1/sayHello")
   @Timed
   @ApiResponses({@ApiResponse(code = 202, message = "Success."),
       @ApiResponse(code = 500, message = "Error"),
   })
-  @ApiOperation(value = "Hello")
+  @ApiOperation(value = "Say Hello")
   public Response sayHello(@QueryParam("name") String name) throws Exception {
     testActor.publish(TestRequest.builder()
         .message(name)
