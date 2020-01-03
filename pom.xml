@@ -46,6 +46,10 @@
           <groupId>com.google.guava</groupId>
           <artifactId>guava</artifactId>
         </exclusion>
+        <exclusion>
+          <artifactId>annotations</artifactId>
+          <groupId>com.google.code.findbugs</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
   </dependencies>

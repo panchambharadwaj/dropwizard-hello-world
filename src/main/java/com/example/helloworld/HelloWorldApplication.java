@@ -1,10 +1,9 @@
 package com.example.helloworld;
 
+import com.example.helloworld.resources.HelloWorldResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import com.example.helloworld.resources.HelloWorldResource;
-import com.example.helloworld.health.TemplateHealthCheck;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 
@@ -32,13 +31,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
   @Override
   public void run(HelloWorldConfiguration configuration,
       Environment environment) {
-    final HelloWorldResource resource = new HelloWorldResource(
-        configuration.getTemplate(),
-        configuration.getDefaultName()
-    );
-    final TemplateHealthCheck healthCheck =
-        new TemplateHealthCheck(configuration.getTemplate());
-    environment.healthChecks().register("template", healthCheck);
+    final HelloWorldResource resource = new HelloWorldResource();
     environment.jersey().register(resource);
   }
 
