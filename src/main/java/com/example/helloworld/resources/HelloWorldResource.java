@@ -1,6 +1,8 @@
 package com.example.helloworld.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import com.example.helloworld.actors.TestActor;
+import com.example.helloworld.models.TestRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -12,11 +14,19 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import lombok.Builder;
 
 @Path("/hello-world")
 @Api(value = "Hello World")
 @Produces(MediaType.APPLICATION_JSON)
 public class HelloWorldResource {
+
+  private final TestActor testActor;
+
+  @Builder
+  public HelloWorldResource(TestActor testActor) {
+    this.testActor = testActor;
+  }
 
   @GET
   @Timed
@@ -24,7 +34,10 @@ public class HelloWorldResource {
       @ApiResponse(code = 500, message = "Error"),
   })
   @ApiOperation(value = "Hello")
-  public Response sayHello(@QueryParam("name") String name) {
+  public Response sayHello(@QueryParam("name") String name) throws Exception {
+    testActor.publish(TestRequest.builder()
+        .message(name)
+        .build());
     return Response.status(Status.OK).build();
   }
 }

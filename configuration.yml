@@ -1,0 +1,31 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: ${PORT}
+  adminConnectors:
+    - type: http
+      port: ${ADMIN_PORT}
+
+swagger:
+  resourcePackage: com.example.helloworld.resources
+
+rmq:
+  brokers:
+    - host: localhost
+      port: 15672
+  userName: guest
+  password: ${RMQ_PASSSWORD}
+  threadPoolSize: 1
+
+actors:
+  STRAVA_WEBHOOKS:
+    exchange: strava_webhooks
+    delayed: false
+    prefix: strava
+    concurrency: 1
+    prefetchCount: 1
+    retryConfig:
+      type: COUNT_LIMITED_EXPONENTIAL_BACKOFF
+      maxAttempts: 6
+      multipier: 50
+      maxTimeBetweenRetries: 30s
