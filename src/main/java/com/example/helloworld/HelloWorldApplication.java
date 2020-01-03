@@ -17,6 +17,8 @@ import org.clojars.pancham.dropwizard.actors.retry.RetryStrategyFactory;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 
+  public static final String SERVICE_NAME = "hello-world";
+
   private RabbitmqActorBundle<HelloWorldConfiguration> rabbitmqActorBundle;
 
   public static void main(String[] args) throws Exception {
@@ -25,7 +27,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
   @Override
   public String getName() {
-    return "hello-world";
+    return SERVICE_NAME;
   }
 
   @Override
@@ -51,8 +53,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
   }
 
   @Override
-  public void run(HelloWorldConfiguration configuration,
-      Environment environment) {
+  public void run(HelloWorldConfiguration configuration, Environment environment) {
     environment.lifecycle().manage(new Managed() {
       TestActor testActor = null;
 
