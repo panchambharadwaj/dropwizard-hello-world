@@ -27,7 +27,7 @@ public class MemCachierClient {
 
     MemcachedClientBuilder builder = new XMemcachedClientBuilder(servers);
 
-    for(InetSocketAddress server : servers) {
+    for (InetSocketAddress server : servers) {
       builder.addAuthInfo(server, authInfo);
     }
 

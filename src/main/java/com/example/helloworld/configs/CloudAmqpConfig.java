@@ -1,4 +1,4 @@
-package com.example.helloworld.models;
+package com.example.helloworld.configs;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,10 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TestRequest {
+@Builder
+public class CloudAmqpConfig {
 
-  private String message;
+  private String url;
+
+  private int port;
+
+  private int threadPoolSize;
+
 }

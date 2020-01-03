@@ -15,7 +15,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.clojars.pancham.dropwizard.actors.actor.ActorConfig;
-import org.clojars.pancham.dropwizard.actors.config.RMQConfig;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Data
@@ -25,15 +24,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @EqualsAndHashCode(callSuper = true)
 public class HelloWorldConfiguration extends Configuration {
 
-  private DataSourceFactory database = new DataSourceFactory();
-
   @JsonProperty("swagger")
   public SwaggerBundleConfiguration swaggerBundleConfiguration;
 
   @JsonProperty("rmq")
-  @NotNull
-  @Valid
-  public RMQConfig rmqConfig;
+  public CloudAmqpConfig cloudAmqpConfig;
 
   @NotNull
   @NotEmpty
@@ -44,5 +39,7 @@ public class HelloWorldConfiguration extends Configuration {
   @NotNull
   @Valid
   public XmemcachedConfig xmemcachedConfig;
+
+  private DataSourceFactory database = new DataSourceFactory();
 
 }

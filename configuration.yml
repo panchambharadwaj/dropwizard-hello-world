@@ -19,13 +19,9 @@ swagger:
   resourcePackage: com.example.helloworld.resources
 
 rmq:
-  brokers:
-    - host: ${RMQ_HOST}
-      port: ${RMQ_PORT}
-  userName: ${RMQ_USERNAME}
-  password: ${RMQ_PASSSWORD}
-  threadPoolSize: ${RMQ_THREAD_POOL_SIZE}
-  virtualHost: ${RMQ_VIRTUAL_HOST}
+  url: ${CLOUDAMQP_URL}
+  port: 15672
+  threadPoolSize: 1
 
 actors:
   STRAVA_WEBHOOKS:

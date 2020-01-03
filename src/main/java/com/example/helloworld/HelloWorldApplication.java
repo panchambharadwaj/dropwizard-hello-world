@@ -5,6 +5,7 @@ import com.example.helloworld.actors.TestActor;
 import com.example.helloworld.clients.MemCachierClient;
 import com.example.helloworld.configs.HelloWorldConfiguration;
 import com.example.helloworld.resources.HelloWorldResource;
+import com.example.helloworld.utils.CloudAmqpUrlParser;
 import com.example.helloworld.utils.PostgresUrlParser;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
@@ -17,6 +18,7 @@ import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import lombok.SneakyThrows;
 import net.rubyeye.xmemcached.MemcachedClient;
 import org.clojars.pancham.dropwizard.actors.RabbitmqActorBundle;
 import org.clojars.pancham.dropwizard.actors.config.RMQConfig;
@@ -53,16 +55,18 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
       }
     });
     rabbitmqActorBundle = new RabbitmqActorBundle<HelloWorldConfiguration>() {
+      @SneakyThrows
       @Override
       protected RMQConfig getConfig(HelloWorldConfiguration helloWorldConfiguration) {
-        return helloWorldConfiguration.getRmqConfig();
+        return new CloudAmqpUrlParser().parse(helloWorldConfiguration.getCloudAmqpConfig());
       }
     };
     bootstrap.addBundle(rabbitmqActorBundle);
   }
 
   @Override
-  public void run(HelloWorldConfiguration configuration, Environment environment) throws URISyntaxException, IOException {
+  public void run(HelloWorldConfiguration configuration, Environment environment)
+      throws URISyntaxException, IOException {
     configuration.getDatabase().setUrl(new PostgresUrlParser().parse(configuration.getDatabase().getUrl()));
     final JdbiFactory factory = new JdbiFactory();
     final Jdbi jdbi = factory.build(environment, configuration.getDatabase(), JDBI_NAME);
