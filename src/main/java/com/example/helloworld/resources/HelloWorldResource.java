@@ -2,6 +2,7 @@ package com.example.helloworld.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import com.example.helloworld.actors.TestActor;
+import com.example.helloworld.daos.BotDao;
 import com.example.helloworld.models.TestRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +17,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
+import org.jdbi.v3.core.Jdbi;
 
 @Path("/")
 @Api(value = "Hello World")
@@ -25,9 +27,12 @@ public class HelloWorldResource {
 
   private final TestActor testActor;
 
+  private BotDao botDao;
+
   @Builder
-  public HelloWorldResource(TestActor testActor) {
+  public HelloWorldResource(Jdbi jdbi, TestActor testActor) {
     this.testActor = testActor;
+    this.botDao = jdbi.onDemand(BotDao.class);
   }
 
   @GET
@@ -41,6 +46,8 @@ public class HelloWorldResource {
     testActor.publish(TestRequest.builder()
         .message(name)
         .build());
+    int athleteId = botDao.getAthleteIdByName("Pancham Bharadwaj");
+    log.info("Athlete ID: {}", athleteId);
     return Response.status(Status.OK).build();
   }
 }

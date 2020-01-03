@@ -6,6 +6,15 @@ server:
     - type: http
       port: ${ADMIN_PORT}
 
+database:
+  driverClass: org.postgresql.Driver
+  url: ${DATABASE_URL}
+  properties:
+    charSet: UTF-8
+  minSize: 5
+  maxSize: 10
+  checkConnectionWhileIdle: false
+
 swagger:
   resourcePackage: com.example.helloworld.resources
 

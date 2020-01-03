@@ -17,6 +17,8 @@
     <dropwizard.rmq.actors.version>1.3.13-5</dropwizard.rmq.actors.version>
     <lombok.version>1.18.10</lombok.version>
     <reflections.version>0.9.10</reflections.version>
+    <postgresql.version>42.2.9</postgresql.version>
+    <dropwizard.jdbi3.version>2.0.0</dropwizard.jdbi3.version>
     <maven.shade.plugin.version>3.2.1</maven.shade.plugin.version>
     <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
     <maven.dependency.plugin.version>3.1.1</maven.dependency.plugin.version>
@@ -38,6 +40,12 @@
       <groupId>io.dropwizard</groupId>
       <artifactId>dropwizard-core</artifactId>
       <version>${dropwizard.core.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>checker-compat-qual</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.smoketurner</groupId>
@@ -93,6 +101,16 @@
       </exclusions>
       <groupId>org.clojars.pancham.dropwizard.actors</groupId>
       <version>${dropwizard.rmq.actors.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.dropwizard</groupId>
+      <artifactId>dropwizard-jdbi3</artifactId>
+      <version>${dropwizard.jdbi3.version}</version>
     </dependency>
   </dependencies>
 
