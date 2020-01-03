@@ -3,9 +3,6 @@ package com.example.helloworld;
 import com.example.helloworld.actors.ActionType;
 import com.example.helloworld.actors.TestActor;
 import com.example.helloworld.resources.HelloWorldResource;
-import io.appform.dropwizard.actors.RabbitmqActorBundle;
-import io.appform.dropwizard.actors.config.RMQConfig;
-import io.appform.dropwizard.actors.retry.RetryStrategyFactory;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
@@ -14,6 +11,9 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
+import org.clojars.pancham.dropwizard.actors.RabbitmqActorBundle;
+import org.clojars.pancham.dropwizard.actors.config.RMQConfig;
+import org.clojars.pancham.dropwizard.actors.retry.RetryStrategyFactory;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 

@@ -4,13 +4,13 @@ import com.example.helloworld.models.TestRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableSet;
-import io.appform.dropwizard.actors.actor.Actor;
-import io.appform.dropwizard.actors.actor.ActorConfig;
-import io.appform.dropwizard.actors.connectivity.RMQConnection;
-import io.appform.dropwizard.actors.retry.RetryStrategyFactory;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
+import org.clojars.pancham.dropwizard.actors.actor.Actor;
+import org.clojars.pancham.dropwizard.actors.actor.ActorConfig;
+import org.clojars.pancham.dropwizard.actors.connectivity.RMQConnection;
+import org.clojars.pancham.dropwizard.actors.retry.RetryStrategyFactory;
 
 @Slf4j
 @EqualsAndHashCode(callSuper = false)

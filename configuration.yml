@@ -16,6 +16,7 @@ rmq:
   userName: ${RMQ_USERNAME}
   password: ${RMQ_PASSSWORD}
   threadPoolSize: ${RMQ_THREAD_POOL_SIZE}
+  virtualHost: ${RMQ_VIRTUAL_HOST}
 
 actors:
   STRAVA_WEBHOOKS:

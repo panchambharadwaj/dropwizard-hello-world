@@ -3,14 +3,14 @@ package com.example.helloworld;
 import com.example.helloworld.actors.ActionType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Maps;
-import io.appform.dropwizard.actors.actor.ActorConfig;
-import io.appform.dropwizard.actors.config.RMQConfig;
 import io.dropwizard.Configuration;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import java.util.Map;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import org.clojars.pancham.dropwizard.actors.actor.ActorConfig;
+import org.clojars.pancham.dropwizard.actors.config.RMQConfig;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Data
